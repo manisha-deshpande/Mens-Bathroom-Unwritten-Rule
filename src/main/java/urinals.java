@@ -19,7 +19,8 @@ public class urinals {
                 if(invalidInput.equalsIgnoreCase(input))
                     allOutputs.add(input);
                 else{
-                    allOutputs.add(findVacantUrinals(input));
+                    List<Integer> integerList = getIntegersFromString(input);
+                    allOutputs.add(findVacantUrinals(integerList));
                 }
             }
         }
@@ -28,7 +29,16 @@ public class urinals {
         }
     }
 
-    public static String findVacantUrinals(String input) {
+    public static List<Integer> getIntegersFromString(String input) {
+        String[] split = input.split("");
+        List<Integer> integerList = new ArrayList<>();
+        for(int i = 0; i < split.length; i++){
+            integerList.add(Integer.valueOf(split[i]));
+        }
+        return integerList;
+    }
+
+    public static String findVacantUrinals(List<Integer> integerList) {
         int count = 0;
         return String.valueOf(count);
     }
