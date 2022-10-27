@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,29 @@ public class urinals {
 
     public static String findVacantUrinals(List<Integer> integerList) {
         int count = 0;
+        Integer previous = null;
+        Integer current = null;
+        Integer next = null;
+        for(int i = 0; i < integerList.size()-1; i++){
+            next = integerList.get(i+1);
+            current = integerList.get(i);
+            if(current == 0){
+                if(next==0){
+                    if(Objects.isNull(previous)){
+                        count++;
+                        current =1;
+                    }
+                    else if(previous==0){
+                        count++;
+                        current=1;
+                    }
+                }
+            }
+            previous = current;
+        }
+        if(previous==0 && next==0)
+            count++;
+        System.out.println(count);
         return String.valueOf(count);
     }
 

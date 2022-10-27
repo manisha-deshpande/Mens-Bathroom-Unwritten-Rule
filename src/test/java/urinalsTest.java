@@ -29,5 +29,11 @@ public class urinalsTest {
             assertEquals(Arrays.asList(0,1,0),urinals.getIntegersFromString("010"));
             assertEquals(Arrays.asList(0,0,0,0,0),urinals.getIntegersFromString("00000"));
         }
+
+        @Test
+        public void testFindVacantUrinals(){
+            assertEquals("0",urinals.findVacantUrinals(Arrays.asList(0,1,0)));
+            assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0)));
+        }
 }
 
