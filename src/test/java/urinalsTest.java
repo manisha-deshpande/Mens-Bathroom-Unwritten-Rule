@@ -21,6 +21,7 @@ public class urinalsTest {
         @Test
         public void testCheckInputValidity(){
             assertEquals(urinals.invalidInput,urinals.checkInputValidity("AB1010"));
+            assertEquals(urinals.invalidInput,urinals.checkInputValidity("001100"));
             assertEquals("1001",urinals.checkInputValidity("1001"));
         }
 

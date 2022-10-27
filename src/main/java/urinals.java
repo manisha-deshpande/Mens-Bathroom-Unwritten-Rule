@@ -7,6 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class urinals {
+    static Pattern zeroesOnesPattern = Pattern.compile("[01]+");
+
+    static Pattern continuousOnesPattern = Pattern.compile("11");
+
     static String invalidInput = "Invalid input";
     public static void main(String[] args){
         execute();
@@ -78,20 +82,18 @@ public class urinals {
             line = scan.nextLine();
             response.add(checkInputValidity(line));
         }
-        if (scan != null)
-            scan.close();
+        scan.close();
 
         return response;
     }
 
     public static String checkInputValidity(String input) {
-        Pattern p = Pattern.compile("[01]+");
-        Matcher m = p.matcher(input);
-        boolean b = m.matches();
-
-        if(b==false){
-            return invalidInput;
+        Matcher basicPatternMatch = zeroesOnesPattern.matcher(input);
+        if(basicPatternMatch.matches()){
+            Matcher continuousOnesMatch = continuousOnesPattern.matcher(input);
+            if(!continuousOnesMatch.find())
+                return input;
         }
-        return input;
+        return invalidInput;
     }
 }
