@@ -46,23 +46,22 @@ public class urinals {
                 }
             }
 
-            writeToOutputFile(allOutputs);
+            writeToOutputFile(allOutputs,filePath);
         }
         catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void writeToOutputFile(List<String> allOutputs) {
+    public static String writeToOutputFile(List<String> allOutputs, String filePath) throws IOException {
         int length = new File(filePath).list().length;
         length = length-1;
         String fileNumber = length==0?"":String.valueOf(length);
-        try {
-            String output = String.join("\n", allOutputs);
-            Files.write(Paths.get(filePath+outputFilePrefix+fileNumber+".txt"), output.getBytes(), StandardOpenOption.CREATE_NEW);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+        String output = String.join("\n", allOutputs);
+        String outputFileName = outputFilePrefix+fileNumber+".txt";
+        Files.write(Paths.get(filePath+outputFileName), output.getBytes(), StandardOpenOption.CREATE_NEW);
+
+        return outputFileName;
     }
 
     public static List<Integer> getIntegersFromString(String input) {

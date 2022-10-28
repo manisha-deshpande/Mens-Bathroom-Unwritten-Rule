@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -68,6 +69,11 @@ public class urinalsTest {
             assertEquals("1",urinals.findVacantUrinals(Arrays.asList(0)));
             assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0)));
             assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0,0)));
+        }
+
+        @Test(expected = FileAlreadyExistsException.class)
+        public void testWriteToDuplicateOutputFile() throws Exception {
+            assertEquals("rule.txt",urinals.writeToOutputFile(Arrays.asList("2","0","-1"),filePath));
         }
 }
 
