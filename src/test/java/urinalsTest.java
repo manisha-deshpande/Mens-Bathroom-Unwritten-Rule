@@ -2,20 +2,24 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class urinalsTest {
         @Test
-        public void testGetAllInputsFromFile() throws FileNotFoundException {
-            List<String> inputs = Arrays.asList("1001","000000","0001");
-            assertEquals(inputs,urinals.getAllInputsFromFile("src\\main\\resources\\urinal.dat"));
+        public void testGetAllInputsFromFile() throws IOException {
+            String fileName = urinals.filePath+urinals.inputFileName;
+            List<String> inputs = Files.readAllLines(Path.of(fileName));
+            assertEquals(inputs,urinals.getAllInputsFromFile(fileName));
         }
 
         @Test(expected = FileNotFoundException.class)
         public void testGetAllInputsFromFileNotFound() throws FileNotFoundException {
-            assertEquals(new ArrayList<>(),urinals.getAllInputsFromFile("src\\main\\resources\\testing.dat"));
+            assertEquals(new ArrayList<>(),urinals.getAllInputsFromFile(urinals.filePath+"testing.dat"));
         }
 
         @Test

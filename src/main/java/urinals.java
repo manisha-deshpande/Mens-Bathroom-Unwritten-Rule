@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,6 +10,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class urinals {
+    static String filePath = "src\\main\\resources\\";
+
+    static String inputFileName = "urinal.dat";
+
+    static String outputFilePrefix = "rule";
+
     static Pattern zeroesOnesPattern = Pattern.compile("[01]+");
 
     static Pattern continuousOnesPattern = Pattern.compile("11");
@@ -17,10 +26,11 @@ public class urinals {
     }
     public static void execute() {
         try{
-            List<String> allInputs = getAllInputsFromFile("src\\main\\resources\\urinal.dat");
+            List<String> allInputs = getAllInputsFromFile(filePath+inputFileName);
             List<String> allOutputs = new ArrayList<>();
 
             for(String input: allInputs){
+                input = checkInputValidity(input);
                 if(invalidInput.equalsIgnoreCase(input))
                     allOutputs.add(input);
                 else{
@@ -28,9 +38,23 @@ public class urinals {
                     allOutputs.add(findVacantUrinals(integerList));
                 }
             }
+
+            writeToOutputFile(allOutputs);
         }
         catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    public static void writeToOutputFile(List<String> allOutputs) {
+        int length = new File(filePath).list().length;
+        length = length-1;
+        String fileNumber = length==0?"":String.valueOf(length);
+        try {
+            String output = String.join("\n", allOutputs);
+            Files.write(Paths.get(filePath+outputFilePrefix+fileNumber+".txt"), output.getBytes(), StandardOpenOption.CREATE_NEW);
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +91,6 @@ public class urinals {
         }
         if(previous==0 && next==0)
             count++;
-        System.out.println(count);
         return String.valueOf(count);
     }
 
@@ -80,7 +103,7 @@ public class urinals {
         String line;
         while (scan.hasNextLine()) {
             line = scan.nextLine();
-            response.add(checkInputValidity(line));
+            response.add(line);
         }
         scan.close();
 
@@ -89,7 +112,7 @@ public class urinals {
 
     public static String checkInputValidity(String input) {
         Matcher basicPatternMatch = zeroesOnesPattern.matcher(input);
-        if(basicPatternMatch.matches()){
+        if(basicPatternMatch.matches() && input.length()<=20){
             Matcher continuousOnesMatch = continuousOnesPattern.matcher(input);
             if(!continuousOnesMatch.find())
                 return input;
