@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -25,7 +26,7 @@ public class urinalsTest {
 
         @Test
         public void testGetAllInputsFromFile() throws Exception {
-            String fileName = filePath+inputFileName;
+            String fileName = filePath+ "outputs\\" +inputFileName;
             List<String> inputs = Files.readAllLines(Path.of(fileName));
             assertEquals(inputs,urinals.getAllInputsFromFile(fileName));
         }
@@ -69,6 +70,15 @@ public class urinalsTest {
             assertEquals("1",urinals.findVacantUrinals(Arrays.asList(0)));
             assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0)));
             assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0,0)));
+        }
+
+        @Test
+        public void testWriteToOutputFile() throws Exception {
+            String outputFilesPath = filePath + "outputs\\";
+            String fileNumber = String.valueOf(new File(outputFilesPath).list().length-1);
+            if("0".equalsIgnoreCase(fileNumber))
+                fileNumber = "";
+            assertEquals(outputFilePrefix+fileNumber+".txt",urinals.writeToOutputFile(Arrays.asList("2","0","-1"),outputFilesPath));
         }
 
         @Test(expected = FileAlreadyExistsException.class)

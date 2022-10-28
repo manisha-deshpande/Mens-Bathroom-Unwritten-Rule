@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -47,6 +48,18 @@ public class urinals {
             }
 
             writeToOutputFile(allOutputs,filePath);
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Input file "+inputFileName+" was not found in path: "+filePath);
+        }
+        catch (FileAlreadyExistsException e){
+            System.out.println("Duplicate/Missing Output filename already exists in path: "+filePath);
+        }
+        catch(IOException e){
+            if("File is empty".equalsIgnoreCase(e.getMessage()))
+                System.out.println("Input file "+filePath+inputFileName+" is empty.");
+            else
+                e.printStackTrace();
         }
         catch(Exception e){
             e.printStackTrace();
