@@ -16,18 +16,29 @@ import java.util.List;
  * */
 
 public class urinalsTest {
+        static String filePath = "src\\test\\resources\\";
+
+        static String inputFileName = "urinal.dat";
+
+        static String outputFilePrefix = "rule";
+
         @Test
-        public void testGetAllInputsFromFile() throws IOException {
-            String fileName = urinals.filePath+urinals.inputFileName;
+        public void testGetAllInputsFromFile() throws Exception {
+            String fileName = filePath+inputFileName;
             List<String> inputs = Files.readAllLines(Path.of(fileName));
             assertEquals(inputs,urinals.getAllInputsFromFile(fileName));
         }
 
         @Test(expected = FileNotFoundException.class)
-        public void testGetAllInputsFromFileNotFound() throws FileNotFoundException {
-            assertEquals(new ArrayList<>(),urinals.getAllInputsFromFile(urinals.filePath+"testing.dat"));
+        public void testGetAllInputsFromFileNotFound() throws Exception {
+            assertEquals(new ArrayList<>(),urinals.getAllInputsFromFile(filePath+"testing.dat"));
         }
 
+        @Test(expected = IOException.class)
+        public void testGetAllInputsFromEmptyFile() throws Exception {
+            String fileName = filePath+"urinalEmpty.dat";
+            assertEquals(new ArrayList<>(),urinals.getAllInputsFromFile(fileName));
+        }
         @Test
         public void testCheckInputValidity(){
             assertEquals("00010100",urinals.checkInputValidity("00010100"));

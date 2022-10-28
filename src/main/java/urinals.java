@@ -110,7 +110,7 @@ public class urinals {
         return String.valueOf(count);
     }
 
-    public static List<String> getAllInputsFromFile(String filename) throws FileNotFoundException {
+    public static List<String> getAllInputsFromFile(String filename) throws Exception {
         List<String> response = new ArrayList<>();
 
         Scanner scan;
@@ -123,6 +123,8 @@ public class urinals {
         }
         scan.close();
 
+        if(response.size()==0)
+            throw new IOException("File is empty");
         return response;
     }
 
