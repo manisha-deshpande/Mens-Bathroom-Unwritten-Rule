@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/* AUTHOR:
+ * Manisha Malhar Rao Deshpande
+ * ASU ID: 1225578055
+ * ASURITE ID: mdeshp10
+ * */
+
 public class urinalsTest {
         @Test
         public void testGetAllInputsFromFile() throws IOException {
@@ -24,21 +30,33 @@ public class urinalsTest {
 
         @Test
         public void testCheckInputValidity(){
+            assertEquals("00010100",urinals.checkInputValidity("00010100"));
+            assertEquals("1",urinals.checkInputValidity("1"));
+            assertEquals("1001",urinals.checkInputValidity("1001"));
+        }
+        @Test
+        public void testCheckInputValidityForInvalidInputs(){
             assertEquals(urinals.invalidInput,urinals.checkInputValidity("AB1010"));
             assertEquals(urinals.invalidInput,urinals.checkInputValidity("001100"));
-            assertEquals("1001",urinals.checkInputValidity("1001"));
+            assertEquals(urinals.invalidInput,urinals.checkInputValidity(""));
+            assertEquals(urinals.invalidInput,urinals.checkInputValidity("001100001100001100001100001100001100"));
         }
 
         @Test
         public void testGetIntegersFromString(){
+            assertEquals(Arrays.asList(1),urinals.getIntegersFromString("1"));
             assertEquals(Arrays.asList(0,1,0),urinals.getIntegersFromString("010"));
+            assertEquals(Arrays.asList(0,1,0,1,0),urinals.getIntegersFromString("01010"));
             assertEquals(Arrays.asList(0,0,0,0,0),urinals.getIntegersFromString("00000"));
         }
 
         @Test
         public void testFindVacantUrinals(){
             assertEquals("0",urinals.findVacantUrinals(Arrays.asList(0,1,0)));
+            assertEquals("0",urinals.findVacantUrinals(Arrays.asList(0,1,0,1,0)));
+            assertEquals("1",urinals.findVacantUrinals(Arrays.asList(0)));
             assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0)));
+            assertEquals("3",urinals.findVacantUrinals(Arrays.asList(0,0,0,0,0,0)));
         }
 }
 

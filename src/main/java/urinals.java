@@ -9,6 +9,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/* AUTHOR:
+* Manisha Malhar Rao Deshpande
+* ASU ID: 1225578055
+* ASURITE ID: mdeshp10
+* */
+
 public class urinals {
     static String filePath = "src\\main\\resources\\";
 
@@ -21,6 +27,7 @@ public class urinals {
     static Pattern continuousOnesPattern = Pattern.compile("11");
 
     static String invalidInput = "Invalid input";
+
     public static void main(String[] args){
         execute();
     }
@@ -68,6 +75,15 @@ public class urinals {
     }
 
     public static String findVacantUrinals(List<Integer> integerList) {
+
+        /* base case of only one digit(urinal) */
+        if(integerList.size()==1){
+            if(integerList.get(0)==0)
+                return "1";
+            else
+                return "0";
+        }
+
         int count = 0;
         Integer previous = null;
         Integer current = null;
@@ -89,7 +105,7 @@ public class urinals {
             }
             previous = current;
         }
-        if(previous==0 && next==0)
+        if(!Objects.isNull(previous) && previous==0 && next==0)
             count++;
         return String.valueOf(count);
     }
@@ -112,8 +128,12 @@ public class urinals {
 
     public static String checkInputValidity(String input) {
         Matcher basicPatternMatch = zeroesOnesPattern.matcher(input);
+
+        /* Input should only have zeroes and ones and should not exceed 20 digits */
         if(basicPatternMatch.matches() && input.length()<=20){
             Matcher continuousOnesMatch = continuousOnesPattern.matcher(input);
+
+            /* Input should not have continuous ones */
             if(!continuousOnesMatch.find())
                 return input;
         }
