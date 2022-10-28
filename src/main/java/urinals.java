@@ -26,7 +26,7 @@ public class urinals {
 
     static Pattern continuousOnesPattern = Pattern.compile("11");
 
-    static String invalidInput = "Invalid input";
+    static String invalidInput = "-1";
 
     public static void main(String[] args){
         execute();
