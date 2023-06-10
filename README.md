@@ -8,9 +8,13 @@ This is a maven-java project.
 About:
 
 This project addresses the unspoken rule that in a men's urinal, there are no two adjacent users. The input is a sequence of 0's and optional 1's, where 0 represents an unused urinal and 1 represents a urinal being used. 
+<br>
 The code returns the number of urinals left that can be used, such that the unwritten rule is followed (no adjacency).
+<br>
 For invalid inputs, the code returns -1.
+<br>
 Each line of the src/main/resources/urinal.dat input file represents an input.
+<br>
 The result of each input is stored on a new line in a newly generated rule.txt output file.
 
 --------------------------
